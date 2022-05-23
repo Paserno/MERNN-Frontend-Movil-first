@@ -11,6 +11,7 @@ import { LoadingScreen } from '../pages/LoadingScreen';
 import { JardinerosScreen } from '../pages/JardinerosScreen';
 import { ChatScreen } from '../pages/ChatScreen';
 import { EditarScreen } from '../pages/EditarScreen';
+import { ContenidoScreen } from '../pages/ContenidoScreen';
 
 const Stack = createStackNavigator();
 
@@ -45,6 +46,7 @@ export const StackNav = () => {
                   <Stack.Screen name="JardinerosScreen" options={{ title: 'Jardineros'}} component={JardinerosScreen} />
                   <Stack.Screen name="ChatScreen" component={ChatScreen} />
                   <Stack.Screen name="EditarScreen" component={EditarScreen} />
+                  <Stack.Screen name="ContenidoScreen" component={ContenidoScreen} />
                 </>
               )
 

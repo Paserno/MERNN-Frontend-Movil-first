@@ -59,7 +59,7 @@ const onRegister = () => {
     <>
 
     <View
-        style={{ flex: 1, backgroundColor: '#5856D6'}}
+        style={{ flex: 1, backgroundColor: '#3C9020'}}
         // behavior={ (Platform.OS === 'ios') ? 'padding' : 'height' }
     >
 
