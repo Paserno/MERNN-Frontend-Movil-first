@@ -20,7 +20,7 @@ export const ChatScreen = () => {
 
     const params = chatState.chatActivo
     
-    const navigator = useNavigation();
+    // const navigator = useNavigation();
 
     const renderItem = ({item}:any) => (
       ( item.para === user?.uid)
@@ -33,7 +33,7 @@ export const ChatScreen = () => {
     <BackgroundChat>
             <StatusBar  translucent barStyle="light-content" backgroundColor="transparent" />
 
-        <View style={ styles.sectionText }>
+        {/* <View style={ styles.sectionText }>
       <TouchableOpacity
         activeOpacity={ 0.8 }
         onPress={ () => navigator.dispatch(CommonActions.goBack())}
@@ -57,7 +57,7 @@ export const ChatScreen = () => {
           style={{ marginRight: 20}}
       /> 
       </TouchableOpacity>
-    </View>
+    </View> */}
 
     <View style={ styles.contanierBlanco}>
       <View style={ styles.chatMessage}>

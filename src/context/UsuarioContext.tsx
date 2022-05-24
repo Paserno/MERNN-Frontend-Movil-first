@@ -9,7 +9,7 @@ const initialState = {
     isLoading: true,
     usuarios: [],   // Todos los usuartios de la base de dato
     jardineros: [],
-    jardinero: {},
+    jardinero: {},  // Jardinero Seleccionado con sus datos.
     usuario: {},   // Un Registro de la BD
 }
 
@@ -37,10 +37,29 @@ export const UsuarioProvider = ({ children }: any ) => {
         }
     }
 
+    const obtenerJerdinero = async(id: string) => {
+        try {
+        const {data} = await connectionApi.get(`/admin/jardin/${id}`, {});
+
+        if (data.ok){
+            const { jardinero } = data;
+
+            dispatch({
+                type: 'obtenerJardinero',
+                payload: jardinero
+            })
+        }
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <UsuarioContext.Provider value={{
             ...state,
-            cargarUsuario
+            cargarUsuario,
+            obtenerJerdinero
         }}>
             { children }
         </UsuarioContext.Provider>

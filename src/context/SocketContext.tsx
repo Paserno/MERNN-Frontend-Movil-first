@@ -28,7 +28,7 @@ export const SocketProvider = ({children}:any) => {
     
     useEffect(() => {
 
-        socket?.on('recibir-mensajes', (mensaje:any) => {
+        socket?.on('mensaje-personal', (mensaje:any) => {
             dispatch({
                 type: 'nuevoMensaje',
                 payload: mensaje

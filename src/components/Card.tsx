@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ChatContext } from '../context/ChatContext';
 import connectionApi from '../api/ConnectionApi';
+import { UsuarioContext } from '../context/UsuarioContext';
 
 
 
@@ -11,6 +12,7 @@ import connectionApi from '../api/ConnectionApi';
 export const Card = ({datos}: any) => {
 
     const {dispatch} = useContext(ChatContext);
+    const {obtenerJerdinero} = useContext(UsuarioContext);
 
     const uri = 'https://www.xtrafondos.com/wallpapers/paisaje-digital-en-atardecer-5846.jpg'
     
@@ -22,6 +24,8 @@ export const Card = ({datos}: any) => {
 
 
    const onClick = async() => {
+       
+    obtenerJerdinero(id);
 
     dispatch({
         type: 'ActivarChat',

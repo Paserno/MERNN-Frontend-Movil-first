@@ -23,7 +23,15 @@ export interface Jardinero {
     _id:          string;
     estado:       boolean;
     activo:       boolean;
-    usuario:      string;
+    usuario:      User;
     especialidad: string;
     descripcion:  string;
+}
+
+interface User {
+    _id:          string;
+    nombre:    string;
+    apellido:  string;
+    correo:    string;
+
 }
