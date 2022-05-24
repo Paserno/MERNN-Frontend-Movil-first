@@ -3,7 +3,7 @@ import { View, StyleSheet, Text } from 'react-native';
 
 export const InComingMessage = ({mss}:any) => {
 
-  // console.log(mss.mensaje)
+  // console.log(mss._id)
   return (
     <View style={ styles.container}>
       <Text style={ styles.text }> {mss.mensaje}</Text>

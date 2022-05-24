@@ -23,9 +23,10 @@ export const ChatScreen = () => {
     // const navigator = useNavigation();
 
     const renderItem = ({item}:any) => (
-      ( item.para === user?.uid)
+      ( item.de !== user?.uid)
       ? <OutComingMessage mss={ item }/>
-      : <InComingMessage mss={ item }/>     
+      : <InComingMessage mss={ item }/>    
+     
     )
 
   return (

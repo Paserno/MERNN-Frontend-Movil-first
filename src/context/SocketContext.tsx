@@ -37,9 +37,15 @@ export const SocketProvider = ({children}:any) => {
 
     }, [socket, dispatch])
 
+    const desconectarSocketChat = () => {
+        desconectarSocket();
+
+    }
+
     return (
         <SocketContext.Provider value={{
-            socket
+            socket,
+            desconectarSocketChat
         }}>
             { children}
         </SocketContext.Provider>
