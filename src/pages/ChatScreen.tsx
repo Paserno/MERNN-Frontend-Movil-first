@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react'
+import React, {useContext} from 'react'
 import { View, Text, StatusBar, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import { BackgroundChat } from '../components/BackgroundChat';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -11,13 +11,14 @@ import { ChatContext } from '../context/ChatContext';
 
 
 
-export const ChatScreen = ({route}: any) => {
+export const ChatScreen = () => {
 
     // En los params.id se recibe el id de la persona seleccionada.
-    const { params} = route;
+    // const { params} = route;
     const { user } = useContext( AuthContext );
     const { chatState } = useContext( ChatContext );
 
+    const params = chatState.chatActivo
     
     const navigator = useNavigation();
 
@@ -45,7 +46,7 @@ export const ChatScreen = ({route}: any) => {
             style={{ marginLeft: -20}}
         /> 
       </TouchableOpacity>
-      <Text style={ styles.title}>Chat: {params.nombre}</Text>
+      <Text style={ styles.title}>Chat</Text>
       <TouchableOpacity
         activeOpacity={ 0.8 }
       >
@@ -60,7 +61,7 @@ export const ChatScreen = ({route}: any) => {
 
     <View style={ styles.contanierBlanco}>
       <View style={ styles.chatMessage}>
-        {/* <ScrollView > */}
+
         <FlatList 
               data={ chatState.mensajes }
               keyExtractor={ (item) => item._id }
@@ -70,14 +71,6 @@ export const ChatScreen = ({route}: any) => {
               contentContainerStyle={{ justifyContent: 'flex-end' }}
               inverted
             />
-            {/* <OutComingMessage />
-            
-            <InComingMessage />
-            <OutComingMessage />
-            <OutComingMessage />
-            <InComingMessage />
-            <InComingMessage /> */}
-        {/* </ScrollView> */}
 
       </View>
         <SendMessage  value={params}/>

@@ -12,6 +12,7 @@ import { JardinerosScreen } from '../pages/JardinerosScreen';
 import { ChatScreen } from '../pages/ChatScreen';
 import { EditarScreen } from '../pages/EditarScreen';
 import { ContenidoScreen } from '../pages/ContenidoScreen';
+import { TopTabNavigator } from './TopTab';
 
 const Stack = createStackNavigator();
 
@@ -47,6 +48,7 @@ export const StackNav = () => {
                   <Stack.Screen name="ChatScreen" component={ChatScreen} />
                   <Stack.Screen name="EditarScreen" component={EditarScreen} />
                   <Stack.Screen name="ContenidoScreen" component={ContenidoScreen} />
+                  <Stack.Screen name="TopTabNavigator" component={TopTabNavigator} />
                 </>
               )
 

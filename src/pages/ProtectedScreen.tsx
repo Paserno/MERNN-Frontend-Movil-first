@@ -39,13 +39,13 @@ export const ProtectedScreen = ({ navigation }: Props) => {
           { token }
         </Text> */}
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
         activeOpacity={ 0.8 }
         onPress={ () => navigation.navigate('Navigator') }
         style={ styles.button }
         >
           <Text style={ styles.buttonText}> Mapa</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         
         <TouchableOpacity
         activeOpacity={ 0.8 }

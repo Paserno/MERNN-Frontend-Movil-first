@@ -19,21 +19,8 @@ export const SendMessage = ({value}: any) => {
     const { mensaje, onChange, onReset} = useForm({
         mensaje: ''
     })
-    const { id } = value
+    const  id  = value
 
-    // useEffect(() => {
-    //     console.log(socket);
-    //     console.log(chatState);
-    //     socket?.on('mensaje-personal', (mensaje:any) => {
-    //         console.log(mensaje);
-    //         console.log('xd');
-    //         dispatch({
-    //             type: 'nuevoMensaje',
-    //             payload: mensaje
-    //         })
-    //     });
-
-    // }, [socket, dispatch])
 
     const onMessage = () => {
         Keyboard.dismiss();

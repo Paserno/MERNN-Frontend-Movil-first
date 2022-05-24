@@ -31,6 +31,11 @@ export const ContenidoScreen = () => {
                 <TouchableOpacity
                     activeOpacity={0.8}
                     style={{ alignSelf:'center', borderWidth: 2, padding: 3}}
+                    onPress={ () => navigator.dispatch(
+                        CommonActions.navigate({
+                            name: 'TopTabNavigator'
+                        })
+                    )}
                 >
                     <Text style={soliStyles.title}>Hola</Text>
                 </TouchableOpacity>
