@@ -31,7 +31,7 @@ export const soliStyles = StyleSheet.create({
     btnContenido: {
       marginTop: 20,
       flexDirection:'row',
-      backgroundColor: '#37BD30',
+      backgroundColor: '#1c1c1c',
       height: 40,
       minWidth: 120,
       borderRadius: 5,

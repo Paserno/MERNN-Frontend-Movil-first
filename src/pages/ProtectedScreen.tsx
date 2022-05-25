@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     button: {
       marginTop: 20,
       flexDirection:'row',
-      backgroundColor: '#5856D6',
+      backgroundColor: '#1c1c1c',
       height: 40,
       minWidth: 120,
       borderRadius: 5,
