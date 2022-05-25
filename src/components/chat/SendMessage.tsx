@@ -5,13 +5,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useForm } from '../../hooks/useForm';
 import { AuthContext } from '../../context/AuthContext';
 import { SocketContext } from '../../context/SocketContext';
-import { ChatContext } from '../../context/ChatContext';
 
 
 export const SendMessage = ({value}: any) => {
 
     // const {emitirMensaje} = useSocket({} as any );
-    const {dispatch, chatState}= useContext(ChatContext);
 
     const {user} = useContext(AuthContext);
     const {socket} = useContext(SocketContext);

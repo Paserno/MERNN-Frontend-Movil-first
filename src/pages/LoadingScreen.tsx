@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
-import { ActivityIndicator, View, Button } from 'react-native';
+import { ActivityIndicator, View, Button, StatusBar } from 'react-native';
 import { AuthContext } from '../context/AuthContext';
+import { BackgroundChat } from '../components/BackgroundChat';
 
 export const LoadingScreen = () => {
 
@@ -8,6 +9,9 @@ export const LoadingScreen = () => {
 
 
   return (
+    <BackgroundChat>
+      <StatusBar  translucent barStyle="light-content" backgroundColor="transparent" />
+
     <View style={{
       flex: 1,
       justifyContent: 'center',
@@ -25,5 +29,6 @@ export const LoadingScreen = () => {
           />
         </View>
     </View>
+    </BackgroundChat>
   )
 }

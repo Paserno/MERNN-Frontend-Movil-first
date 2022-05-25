@@ -6,16 +6,26 @@ import { useNavigation, CommonActions } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { UsuarioContext } from '../context/UsuarioContext';
 import { Start } from '../components/Start';
+import { SolicitudContext } from '../context/SolicitudContext';
+import { LoadingScreen } from './LoadingScreen';
 
 
 export const ContenidoScreen = () => {
     const navigator = useNavigation();
     const {jardinero} = useContext(UsuarioContext);
+    const {ok, isLoadingSoli} = useContext(SolicitudContext);
     const { usuario } = jardinero;
-    
     
 
     const uri = 'https://www.mundojardineria.com/site/article/5287/6829/consejos-para-una-correcta-poda-de-los-arboles-0_ai1.jpg'
+
+    if (isLoadingSoli){
+        return (
+        <LoadingScreen/>
+        )
+
+    }
+    
 
     return (
         <BackgroundChat>
@@ -55,8 +65,22 @@ export const ContenidoScreen = () => {
                 
                 <Text style={soliStyles.labelContenido}>Puntuación:  <Start/></Text>
                 
-
-                <TouchableOpacity
+                {
+                    (ok)
+                    ?(
+                    <TouchableOpacity
+                    activeOpacity={0.8}
+                    style={soliStyles.btnContenido}
+                    onPress={ () => navigator.dispatch(
+                        CommonActions.navigate({
+                            name: 'TopTabNavigator'
+                        })
+                    )}
+                >
+                    <Text style={soliStyles.btnContenidoText}>Continuar</Text>
+                </TouchableOpacity> )
+                    : (
+                        <TouchableOpacity
                     activeOpacity={0.8}
                     style={soliStyles.btnContenido}
                     onPress={ () => navigator.dispatch(
@@ -66,7 +90,11 @@ export const ContenidoScreen = () => {
                     )}
                 >
                     <Text style={soliStyles.btnContenidoText}>Solicitar</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> )
+                }
+                
+
+                
                 </View>
             </View>
         </BackgroundChat>

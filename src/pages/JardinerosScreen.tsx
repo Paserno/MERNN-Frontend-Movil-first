@@ -20,6 +20,9 @@ export const JardinerosScreen = ({ navigation }: any) => {
   }, [])
 
   
+  
+
+  
   const renderItem = ({item}:any) => (
     ( item._id === user?.uid)
       ? null 

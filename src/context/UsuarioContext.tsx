@@ -1,8 +1,7 @@
-import React, { createContext, useReducer } from 'react'
+import React, { createContext, useReducer, useContext } from 'react'
 import { usuarioReducer } from '../reducers/usuarioReducer';
 import connectionApi from '../api/ConnectionApi';
-// import { Jardin } from '../interface/activoInterface';
-
+import { SolicitudContext } from './SolicitudContext';
 
 
 const initialState = {
@@ -17,7 +16,8 @@ export const UsuarioContext = createContext({} as any);
 
 export const UsuarioProvider = ({ children }: any ) => {
 
-    const [state, dispatch] = useReducer(usuarioReducer, initialState)
+    const [state, dispatch] = useReducer(usuarioReducer, initialState);
+    const { obtenerSolicitud, loadingSolicitud }= useContext(SolicitudContext);
 
     const cargarUsuario = async() => {
         try {
@@ -38,11 +38,14 @@ export const UsuarioProvider = ({ children }: any ) => {
     }
 
     const obtenerJerdinero = async(id: string) => {
+        loadingSolicitud();
+        
         try {
         const {data} = await connectionApi.get(`/admin/jardin/${id}`, {});
 
         if (data.ok){
             const { jardinero } = data;
+            obtenerSolicitud(jardinero._id);
 
             dispatch({
                 type: 'obtenerJardinero',
