@@ -44,11 +44,26 @@ export const SolicitudProvider = ({ children }: any ) => {
         })
     }
 
+    const actualizarSolicitud = (solicitud: any) => {
+        disparo({
+            type: 'ActualizarSolicitud',
+            payload: solicitud
+        })
+    }
+
+    const eliminarSolicitud = () => {
+        disparo({
+            type: 'EliminarSolicitud'
+        })
+    }
+
     return (
         <SolicitudContext.Provider value={{
             ...stateSolicitud,
             obtenerSolicitud,
             loadingSolicitud,
+            actualizarSolicitud,
+            eliminarSolicitud,
         }}>
             { children }
         </SolicitudContext.Provider>

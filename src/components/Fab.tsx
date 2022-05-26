@@ -29,6 +29,27 @@ export const Fab = ({ iconName, onPress, style = {}}: Props) => {
   )
 }
 
+// export const FabSolicitud = ({ iconName, onPress, styles = {}}: any) => {
+//     return (
+//         <View style={{ ...style as any }}>
+    
+//             <TouchableOpacity
+//                 activeOpacity={ 0.8 }
+//                 onPress={ onPress }
+//                 style={ styles.blackButton }
+//             >
+//                 <Icon 
+//                     name={ iconName }
+//                     color="white"
+//                     size={ 35 }
+//                     style={{ left:1.5}}
+//                 /> 
+//             </TouchableOpacity>
+    
+//         </View>
+//       )
+// }
+
 const styles = StyleSheet.create({
     blackButton: {
         zIndex: 999,
