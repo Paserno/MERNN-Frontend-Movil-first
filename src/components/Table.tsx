@@ -1,40 +1,31 @@
 import React, {useContext} from 'react'
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { SolicitudContext } from '../context/SolicitudContext';
+import { ItemTable } from './ItemTable';
 //  { JSON.stringify(isEnabled, null, 5) }
 
 export const Table = () => {
 
-  const {detalleSolicitud} = useContext(SolicitudContext)
+  const {detalleSolicitud} = useContext(SolicitudContext);
 
-  // TODO: Crear Componente para mostrar tabla personalizada con estilos
   const renderItem = ({item}:any) => (
-    <View style={{flexDirection: 'row'}}>
-      <View style={{ width: 100, marginLeft: 10}}>
-        <Text>{item.precio}</Text>
-      </View>
-      <View style={{ width: 120 }}>
-        <Text>{item.idTipoServicio.nombre}</Text>
-      </View>
-      <View style={{ width: 100, marginLeft: 10}}>
-        <Text>{JSON.stringify(item.realizado, null, 5)}</Text>
-      </View>
-    </View>
-
-    
+    <ItemTable item={item}/>
   )
 
   return (
-    <View style={{}}>
-      <View style={{flexDirection: 'row'}}>
-      <View style={{ width: 100, marginLeft: 10}}>
-        <Text>Precio</Text>
-      </View>
-      <View style={{ width: 120 }}>
+    <View style={{ }}>
+      <View style={{...styles.tableDetalle}}>
+      <View style={{ width: 110 }}>
         <Text>Servicio</Text>
       </View>
       <View style={{ width: 100, marginLeft: 10}}>
+        <Text>Precio</Text>
+      </View>
+      <View style={{ width: 80, marginLeft: 10}}>
         <Text>Estado</Text>
+      </View>
+      <View style={{ width: 80, marginLeft: 10}}>
+        <Text>Eliminar</Text>
       </View>
     </View>
         <FlatList 
@@ -45,3 +36,13 @@ export const Table = () => {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+    tableDetalle: {
+      flexDirection: 'row',
+      borderBottomColor: 'rgba(160,160,160,0.8)',
+      borderBottomWidth: 2,
+      marginLeft: 10,
+      marginRight: 10,
+    }
+});

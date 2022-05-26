@@ -81,7 +81,7 @@ export const SolicitudProvider = ({ children }: any ) => {
     const obtenerDetalleSolicitud = async(idSolicitud: any) => {
         try {
             const {data} = await connectionApi.get(`/soli/detalle/${idSolicitud}`, {});
-            console.log(data);
+            // console.log(data);
 
             if (!data.msg){
                 return disparo({
@@ -99,6 +99,13 @@ export const SolicitudProvider = ({ children }: any ) => {
         }
     }
 
+    const eliminarDetalleSolicitud = async(detalleSolicitud: any) => {
+        disparo({
+            type: 'EliminarDetalleSolicitud',
+            payload: detalleSolicitud
+        })
+    }
+
     return (
         <SolicitudContext.Provider value={{
             ...stateSolicitud,
@@ -108,6 +115,7 @@ export const SolicitudProvider = ({ children }: any ) => {
             actualizarSolicitud,
             eliminarSolicitud,
             obtenerDetalleSolicitud,
+            eliminarDetalleSolicitud,
         }}>
             { children }
         </SolicitudContext.Provider>

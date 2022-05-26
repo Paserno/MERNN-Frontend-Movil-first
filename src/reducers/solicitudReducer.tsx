@@ -8,6 +8,8 @@ type SolicitudAction =
 |  { type: 'EliminarSolicitud'}
 |  { type: 'CargarDetalleSolicitud', payload: any}
 |  { type: 'CargaDetalleVacia'}
+|  { type: 'EliminarDetalleSolicitud', payload: any}
+
 
 
 export const solicitudReducer = (state: any, action: SolicitudAction) => {
@@ -68,6 +70,28 @@ export const solicitudReducer = (state: any, action: SolicitudAction) => {
                 ...state,
                 detalleSolicitud: []
             }
+        
+        case 'EliminarDetalleSolicitud':
+            return {
+                ...state,
+                detalleSolicitud: state.detalleSolicitud.filter(
+                    (e: { _id: string }) => ( e._id === action.payload._id)
+                        ? false
+                        : true
+                )
+            }
+
+        /*
+        return {
+                ...state,
+                usuarios: state.usuarios.filter(
+                    e => ( e.uid === action.payload.uid)
+                            ? false
+                            : true
+
+                )
+            }
+        */
             
     
         default:

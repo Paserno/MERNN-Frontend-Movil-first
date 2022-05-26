@@ -33,7 +33,7 @@ export const EditarScreen = ({route}:any) => {
 
   const onClick = () => {
     const uid = params.usuario.uid;
-    console.log(uid)
+    // console.log(uid)
     editarUser(uid, name, lastname, password , city, direction );
 
     Alert.alert('Datos Guardados', 'Los nuevos datos han sido almacenados',[{

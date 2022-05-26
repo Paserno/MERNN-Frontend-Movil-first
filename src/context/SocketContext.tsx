@@ -13,7 +13,7 @@ export const SocketProvider = ({children}:any) => {
     const { dispatch }= useContext(ChatContext);
     const { socket, conectarSocket, desconectarSocket } = useSocket('http://192.168.1.84:8082');
     const { logged }: AuthState = useContext(AuthContext);
-    const { actualizarSolicitud, eliminarSolicitud } = useContext(SolicitudContext);
+    const { actualizarSolicitud, eliminarSolicitud, eliminarDetalleSolicitud } = useContext(SolicitudContext);
 
     useEffect(() => {
         if(logged){
@@ -55,6 +55,14 @@ export const SocketProvider = ({children}:any) => {
         });
 
     }, [socket])
+
+    useEffect(() => {
+        socket?.on('eliminar-detalle-solicitud', (detalleSolicitud:any) => {
+            eliminarDetalleSolicitud(detalleSolicitud);
+        });
+      
+    }, [socket])
+    
 
     const desconectarSocketChat = () => {
         desconectarSocket();

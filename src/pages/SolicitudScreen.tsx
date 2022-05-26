@@ -130,7 +130,7 @@ export const SolicitudScreen = ({ navigation }: any) => {
 
         </View>
 
-        <View style={{ height: 200, marginTop: 30, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+        <View style={styles.containerTable}>
           <Table />
         </View>
       </View>
@@ -205,5 +205,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.27,
     shadowRadius: 4.65,
     elevation: 6
-}
+},
+containerTable: {
+  height: 230,
+  marginTop: 30,
+  width: '100%', 
+  justifyContent: 'center', 
+  alignItems: 'center',
+  
+},
 });
