@@ -61,22 +61,24 @@ export const SolicitudScreen = ({ navigation }: any) => {
       <View style={ styles.subConteiner }>
         <Text style={ styles.title }>SolicitudScreen</Text>
 
-        
-
         <Text>
           { JSON.stringify(isEnabled, null, 5) }
         </Text>
 
         <Text style={{margin: 20}}>Confirmación: 
-
-        <Switch
-        trackColor={{ false: "#979699", true: "#84B374" }}
-        thumbColor={isEnabled ? "#D9D6DE" : "#D9D6DE"}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
-        value={isEnabled}
-      />
+          <Switch
+            trackColor={{ false: "#979699", true: "#84B374" }}
+            thumbColor={isEnabled ? "#D9D6DE" : "#D9D6DE"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+          />
         </Text>
+
+        <View style={styles.containerTable}>
+          <Table />
+        </View>
+
 
         <TouchableOpacity
           activeOpacity={ 0.8 }
@@ -130,9 +132,7 @@ export const SolicitudScreen = ({ navigation }: any) => {
 
         </View>
 
-        <View style={styles.containerTable}>
-          <Table />
-        </View>
+       
       </View>
     </View>
   )

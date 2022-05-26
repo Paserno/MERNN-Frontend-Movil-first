@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react'
-import { View, StyleSheet, Text, TouchableOpacity, StatusBar, FlatList, ScrollView} from 'react-native';
+import React, { useContext, useEffect, useState } from 'react'
+import { View, StyleSheet, Text, TouchableOpacity, StatusBar, FlatList, ScrollView, RefreshControl} from 'react-native';
 import { Card } from '../components/Card';
 import { BackgroundChat } from '../components/BackgroundChat';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -13,11 +13,21 @@ export const JardinerosScreen = ({ navigation }: any) => {
 
   const {usuarios, cargarUsuario} = useContext(UsuarioContext);
   const { user } = useContext( AuthContext );
+  const [refreshing, setRefreshing] = useState(false)
 
 
   useEffect(() => {
     cargarUsuario();
   }, [])
+
+  const onRefresh = () => {
+    setRefreshing(true);
+
+    cargarUsuario();
+    setRefreshing(false);
+
+   
+  }
 
   
   
@@ -63,8 +73,9 @@ export const JardinerosScreen = ({ navigation }: any) => {
       
     </View>
     <View style={ styles.contanierBlanco}>
-      {/* <ScrollView> */}
+
         <View style={ styles.contanier }>
+          {/* <ScrollView style={{flex:1}}> */}
             <FlatList 
               data={ usuarios }
               keyExtractor={ (item) => item._id }
@@ -72,12 +83,19 @@ export const JardinerosScreen = ({ navigation }: any) => {
               // horizontal={ true }
               showsVerticalScrollIndicator={ false}
               style={{ width: 350, height: 75, marginBottom: 10}}
-            />
+              refreshControl={
+                <RefreshControl 
+                  refreshing={ refreshing }
+                  onRefresh={ onRefresh }
+                  progressViewOffset={ 50 }
+                />
+              }
+              />
             
             {/* <Card /> */}
 
+              {/* </ScrollView> */}
         </View>
-      {/* </ScrollView> */}
     </View>
 
     
