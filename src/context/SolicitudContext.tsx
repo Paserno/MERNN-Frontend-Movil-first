@@ -38,6 +38,27 @@ export const SolicitudProvider = ({ children }: any ) => {
 
     }
 
+    const crearSolicitud = async(idJardinero: string) => {
+        try {
+            const {data} = await connectionApi.post(`/soli`, {idJardinero});
+            
+            if (data.ok){
+                const solicitud = data.solicitud
+
+                disparo({
+                    type: 'CargarSolicitud',
+                    payload: solicitud
+                })
+            }
+            
+        } catch (error: any) {
+            console.log(error.response.data)
+            
+        }
+
+
+    }
+
     const loadingSolicitud = () => {
         disparo({
             type: 'LoadingSolicitud'
@@ -61,6 +82,7 @@ export const SolicitudProvider = ({ children }: any ) => {
         <SolicitudContext.Provider value={{
             ...stateSolicitud,
             obtenerSolicitud,
+            crearSolicitud,
             loadingSolicitud,
             actualizarSolicitud,
             eliminarSolicitud,

@@ -13,7 +13,7 @@ import { LoadingScreen } from './LoadingScreen';
 export const ContenidoScreen = () => {
     const navigator = useNavigation();
     const {jardinero} = useContext(UsuarioContext);
-    const {ok, isLoadingSoli} = useContext(SolicitudContext);
+    const {ok, isLoadingSoli, crearSolicitud} = useContext(SolicitudContext);
     const { usuario } = jardinero;
     
 
@@ -24,6 +24,15 @@ export const ContenidoScreen = () => {
         <LoadingScreen/>
         )
 
+    }
+
+    const pedirSolicitud = () => {
+        crearSolicitud(jardinero._id);
+        navigator.dispatch(
+            CommonActions.navigate({
+                name: 'TopTabNavigator'
+            })
+        )
     }
     
 
@@ -83,11 +92,7 @@ export const ContenidoScreen = () => {
                         <TouchableOpacity
                     activeOpacity={0.8}
                     style={soliStyles.btnContenido}
-                    onPress={ () => navigator.dispatch(
-                        CommonActions.navigate({
-                            name: 'TopTabNavigator'
-                        })
-                    )}
+                    onPress={ pedirSolicitud }
                 >
                     <Text style={soliStyles.btnContenidoText}>Solicitar</Text>
                 </TouchableOpacity> )

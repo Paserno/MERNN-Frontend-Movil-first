@@ -2,6 +2,7 @@
 type SolicitudAction = 
 |  { type: 'NoExisteSolicitud' }
 |  { type: 'ExisteSolicitud', payload: any }
+|  { type: 'CargarSolicitud', payload: any }
 |  { type: 'LoadingSolicitud'}
 |  { type: 'ActualizarSolicitud', payload: any}
 |  { type: 'EliminarSolicitud'}
@@ -45,6 +46,15 @@ export const solicitudReducer = (state: any, action: SolicitudAction) => {
                 detalleSolicitud: [],
                 ok: false,
             }
+
+        case 'CargarSolicitud': 
+            return {
+                ...state,
+                solicitud: action.payload,
+                ok: true,
+                isLoadingSoli: false
+            }
+        
             
     
         default:
