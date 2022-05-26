@@ -78,6 +78,27 @@ export const SolicitudProvider = ({ children }: any ) => {
         })
     }
 
+    const obtenerDetalleSolicitud = async(idSolicitud: any) => {
+        try {
+            const {data} = await connectionApi.get(`/soli/detalle/${idSolicitud}`, {});
+            console.log(data);
+
+            if (!data.msg){
+                return disparo({
+                    type: 'CargarDetalleSolicitud',
+                    payload: data.detalleSolicitud
+                })
+            }
+            disparo({
+                type: 'CargaDetalleVacia',
+            })
+            
+        } catch (error: any) {
+            console.log(error.response.data)
+            console.log(error.response.data.errors[0])
+        }
+    }
+
     return (
         <SolicitudContext.Provider value={{
             ...stateSolicitud,
@@ -86,6 +107,7 @@ export const SolicitudProvider = ({ children }: any ) => {
             loadingSolicitud,
             actualizarSolicitud,
             eliminarSolicitud,
+            obtenerDetalleSolicitud,
         }}>
             { children }
         </SolicitudContext.Provider>

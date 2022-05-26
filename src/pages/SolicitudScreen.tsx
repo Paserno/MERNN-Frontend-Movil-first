@@ -1,15 +1,15 @@
 import { StackActions } from '@react-navigation/native';
-import React, { useContext, useState } from 'react'
-import { View, Text, StyleSheet, Switch, Alert } from 'react-native';
-import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
+import React, { useContext, useState, useEffect } from 'react'
+import { View, Text, StyleSheet, Switch, Alert, TouchableOpacity } from 'react-native';
 import { SolicitudContext } from '../context/SolicitudContext';
 import { SocketContext } from '../context/SocketContext';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { Table } from '../components/Table';
 
 
 export const SolicitudScreen = ({ navigation }: any) => {
   const popAction = StackActions.pop(1);
-  const { solicitud } = useContext(SolicitudContext);
+  const { solicitud, obtenerDetalleSolicitud } = useContext(SolicitudContext);
   const {socket} = useContext(SocketContext);
 
   const [isEnabled, setIsEnabled] = useState(solicitud.confirmacion);
@@ -17,8 +17,13 @@ export const SolicitudScreen = ({ navigation }: any) => {
     setIsEnabled( !isEnabled )
   };
 
+  useEffect(() => {
+    const idSolicitud = solicitud._id;
+    obtenerDetalleSolicitud(idSolicitud);
+  }, [])
+  
+
   const guardarCambios = () => {
-    
     socket.emit( 'cambio-solicitud',{
              id: solicitud._id,
              confirmacion: isEnabled,
@@ -55,6 +60,8 @@ export const SolicitudScreen = ({ navigation }: any) => {
     <View style={ styles.conteiner }>
       <View style={ styles.subConteiner }>
         <Text style={ styles.title }>SolicitudScreen</Text>
+
+        
 
         <Text>
           { JSON.stringify(isEnabled, null, 5) }
@@ -119,9 +126,13 @@ export const SolicitudScreen = ({ navigation }: any) => {
                   style={{ }}
               /> 
           </TouchableOpacity>
+         
 
         </View>
 
+        <View style={{ height: 200, marginTop: 30, width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+          <Table />
+        </View>
       </View>
     </View>
   )

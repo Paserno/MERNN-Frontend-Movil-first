@@ -6,6 +6,8 @@ type SolicitudAction =
 |  { type: 'LoadingSolicitud'}
 |  { type: 'ActualizarSolicitud', payload: any}
 |  { type: 'EliminarSolicitud'}
+|  { type: 'CargarDetalleSolicitud', payload: any}
+|  { type: 'CargaDetalleVacia'}
 
 
 export const solicitudReducer = (state: any, action: SolicitudAction) => {
@@ -54,7 +56,18 @@ export const solicitudReducer = (state: any, action: SolicitudAction) => {
                 ok: true,
                 isLoadingSoli: false
             }
+
+        case 'CargarDetalleSolicitud':
+            return {
+                ...state,
+                detalleSolicitud: action.payload
+            }
         
+        case 'CargaDetalleVacia':
+            return {
+                ...state,
+                detalleSolicitud: []
+            }
             
     
         default:
