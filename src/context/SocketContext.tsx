@@ -13,7 +13,7 @@ export const SocketProvider = ({children}:any) => {
     const { dispatch }= useContext(ChatContext);
     const { socket, conectarSocket, desconectarSocket } = useSocket('http://192.168.1.84:8082');
     const { logged }: AuthState = useContext(AuthContext);
-    const { actualizarSolicitud, eliminarSolicitud, eliminarDetalleSolicitud } = useContext(SolicitudContext);
+    const { actualizarSolicitud, eliminarSolicitud, eliminarDetalleSolicitud, crearDetalleSolicitud } = useContext(SolicitudContext);
 
     useEffect(() => {
         if(logged){
@@ -54,6 +54,13 @@ export const SocketProvider = ({children}:any) => {
             eliminarSolicitud();
         });
 
+    }, [socket])
+
+    useEffect(() => {
+        socket?.on('crear-detalle-solicitud', (detalleSolicitud:any) => {
+            crearDetalleSolicitud(detalleSolicitud)
+        });
+      
     }, [socket])
 
     useEffect(() => {

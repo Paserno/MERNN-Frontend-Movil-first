@@ -9,6 +9,8 @@ type SolicitudAction =
 |  { type: 'CargarDetalleSolicitud', payload: any}
 |  { type: 'CargaDetalleVacia'}
 |  { type: 'EliminarDetalleSolicitud', payload: any}
+|  { type: 'NuevoDetalleSolicitud', payload: any}
+
 
 
 
@@ -80,18 +82,12 @@ export const solicitudReducer = (state: any, action: SolicitudAction) => {
                         : true
                 )
             }
-
-        /*
-        return {
+        
+        case 'NuevoDetalleSolicitud':
+            return {
                 ...state,
-                usuarios: state.usuarios.filter(
-                    e => ( e.uid === action.payload.uid)
-                            ? false
-                            : true
-
-                )
+                detalleSolicitud: [...state.detalleSolicitud, action.payload]
             }
-        */
             
     
         default:

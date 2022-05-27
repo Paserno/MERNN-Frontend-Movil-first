@@ -99,6 +99,13 @@ export const SolicitudProvider = ({ children }: any ) => {
         }
     }
 
+    const crearDetalleSolicitud = async(detalleSolicitud: any) => {
+        disparo({
+            type: 'NuevoDetalleSolicitud',
+            payload: detalleSolicitud
+        })
+    }
+
     const eliminarDetalleSolicitud = async(detalleSolicitud: any) => {
         disparo({
             type: 'EliminarDetalleSolicitud',
@@ -116,6 +123,7 @@ export const SolicitudProvider = ({ children }: any ) => {
             eliminarSolicitud,
             obtenerDetalleSolicitud,
             eliminarDetalleSolicitud,
+            crearDetalleSolicitud,
         }}>
             { children }
         </SolicitudContext.Provider>
