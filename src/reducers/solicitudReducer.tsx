@@ -10,6 +10,8 @@ type SolicitudAction =
 |  { type: 'CargaDetalleVacia'}
 |  { type: 'EliminarDetalleSolicitud', payload: any}
 |  { type: 'NuevoDetalleSolicitud', payload: any}
+|  { type: 'ActualizarDetalleSolicitud', payload: any}
+
 
 
 
@@ -71,6 +73,16 @@ export const solicitudReducer = (state: any, action: SolicitudAction) => {
             return {
                 ...state,
                 detalleSolicitud: []
+            }
+        
+        case 'ActualizarDetalleSolicitud': 
+            return {
+                ...state,
+                detalleSolicitud: state.detalleSolicitud.map(
+                    (e: { _id: string }) => ( e._id === action.payload._id)
+                        ? action.payload
+                        : e
+                )
             }
         
         case 'EliminarDetalleSolicitud':

@@ -113,6 +113,14 @@ export const SolicitudProvider = ({ children }: any ) => {
         })
     }
 
+    const actualizarDetalleSolicitud = (detalleSolicitud: any) => {
+        disparo({
+            type: 'ActualizarDetalleSolicitud',
+            payload: detalleSolicitud
+        })
+        
+    }
+
     return (
         <SolicitudContext.Provider value={{
             ...stateSolicitud,
@@ -124,6 +132,7 @@ export const SolicitudProvider = ({ children }: any ) => {
             obtenerDetalleSolicitud,
             eliminarDetalleSolicitud,
             crearDetalleSolicitud,
+            actualizarDetalleSolicitud,
         }}>
             { children }
         </SolicitudContext.Provider>
