@@ -11,7 +11,7 @@ const initialState = {
     detalleSolicitud: [], // El arreglo de detalle solicitud.
     ok: true,
 }
-
+// TODO: Limpiar campos al Retroceder en la pagina!
 export const SolicitudProvider = ({ children }: any ) => {
 
     const [stateSolicitud, disparo] = useReducer( solicitudReducer, initialState);

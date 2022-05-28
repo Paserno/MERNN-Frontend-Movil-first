@@ -13,7 +13,7 @@ export const Table = () => {
   )
 
   return (
-    <View style={{ }}>
+    <View style={{ height: 150}}>
       <View style={{...styles.tableDetalle}}>
       <View style={{ width: 110 }}>
         <Text>Servicio</Text>

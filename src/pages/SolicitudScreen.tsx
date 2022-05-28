@@ -6,7 +6,7 @@ import { SocketContext } from '../context/SocketContext';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Table } from '../components/Table';
 
-
+//TODO: Validar un poco mas el switch Finalizar Servicio!
 export const SolicitudScreen = ({ navigation }: any) => {
   const popAction = StackActions.pop(1);
   const { solicitud, obtenerDetalleSolicitud, detalleSolicitud } = useContext(SolicitudContext);
@@ -38,6 +38,11 @@ export const SolicitudScreen = ({ navigation }: any) => {
         )
     : null
   };
+
+  useEffect(() => {
+    setIsSecundEnabled(solicitud.start)
+    setIsThirdEnabled(solicitud.finish)
+  }, [solicitud])
 
   useEffect(() => {
     const idSolicitud = solicitud._id;
@@ -75,6 +80,15 @@ export const SolicitudScreen = ({ navigation }: any) => {
     });
 
     navigation.dispatch(popAction);
+  }
+
+  const mapSuma = () => {
+    if (detalleSolicitud.length === 0 ){
+      return null;
+    }
+    const sumaaReducer = (acumulador : number, numero: number) => acumulador + numero;
+    const sumaPrecio = detalleSolicitud.map((e: {precio:string}) => parseInt(e.precio)).reduce(sumaaReducer)
+    return sumaPrecio;
   }
 
   const habilitarSwitchFinalizar = () => {
@@ -141,6 +155,8 @@ export const SolicitudScreen = ({ navigation }: any) => {
         <View style={styles.containerTable}>
           <Table />
         </View>
+        
+        <Text style={styles.textoTotal}> Total: { mapSuma() }</Text>
 
 
         <TouchableOpacity
@@ -281,5 +297,12 @@ containerTable: {
   justifyContent: 'center', 
   alignItems: 'center',
   
+},
+textoTotal: { 
+  marginTop: -10,
+  alignSelf: 'flex-start', 
+  marginLeft: 10,
+  fontWeight: 'bold',
+
 },
 });
