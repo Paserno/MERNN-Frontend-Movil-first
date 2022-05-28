@@ -9,12 +9,34 @@ import { Table } from '../components/Table';
 
 export const SolicitudScreen = ({ navigation }: any) => {
   const popAction = StackActions.pop(1);
-  const { solicitud, obtenerDetalleSolicitud } = useContext(SolicitudContext);
+  const { solicitud, obtenerDetalleSolicitud, detalleSolicitud } = useContext(SolicitudContext);
   const {socket} = useContext(SocketContext);
 
   const [isEnabled, setIsEnabled] = useState(solicitud.confirmacion);
+  const [isSecundEnabled, setIsSecundEnabled] = useState(solicitud.start);
+  const [isThirdEnabled, setIsThirdEnabled] = useState(solicitud.finish);
+
   const toggleSwitch = () =>{ 
     setIsEnabled( !isEnabled )
+  };
+  const toggleSecundSwitch = () => {
+    setIsSecundEnabled(!isSecundEnabled)
+  };
+  const toggleThirdSwitch = () => {
+    (!isThirdEnabled)
+    ?(
+      Alert.alert('Finalizar Solicitud', '¿Seguro que quiere Terminar la Solicitud?',[
+        {
+          text: 'Cancelar',
+          onPress: () => null
+        },
+        {
+          text: 'Aceptar',
+          onPress: () => setIsThirdEnabled(true)
+        }
+      ])
+        )
+    : null
   };
 
   useEffect(() => {
@@ -27,7 +49,7 @@ export const SolicitudScreen = ({ navigation }: any) => {
     socket.emit( 'cambio-solicitud',{
              id: solicitud._id,
              confirmacion: isEnabled,
-             
+             finish: isThirdEnabled
         })
   }
 
@@ -55,25 +77,66 @@ export const SolicitudScreen = ({ navigation }: any) => {
     navigation.dispatch(popAction);
   }
 
+  const habilitarSwitchFinalizar = () => {
+    const numeroDetalle = detalleSolicitud.filter(
+        (e: {realizado:boolean}) => (!e.realizado) 
+          ? true
+          : false 
+    )
+    if (numeroDetalle.length === 0 ){
+      return true
+    }
+    return false
+  }
+  
+
 
   return (
     <View style={ styles.conteiner }>
       <View style={ styles.subConteiner }>
-        <Text style={ styles.title }>SolicitudScreen</Text>
+        <Text style={ styles.title }>Solicitud</Text>
 
-        <Text>
-          { JSON.stringify(isEnabled, null, 5) }
-        </Text>
+     
+        <Text style={{ margin: 15 }}>Confirmación:
 
-        <Text style={{margin: 20}}>Confirmación: 
           <Switch
             trackColor={{ false: "#979699", true: "#84B374" }}
-            thumbColor={isEnabled ? "#D9D6DE" : "#D9D6DE"}
+            thumbColor={isEnabled ? "#5856D6" : "#5856D6"}
             ios_backgroundColor="#3e3e3e"
             onValueChange={toggleSwitch}
             value={isEnabled}
+            // disabled
+          />
+          </Text>
+          <Text style={{ margin: 15 }}>Iniciar Servicio:
+          <Text style={{margin: 5}}>
+            {JSON.stringify(solicitud.start, null, 5)}
+          </Text>
+          <Switch
+            trackColor={{ false: "#979699", true: "#84B374" }}
+            thumbColor={isSecundEnabled ? "#D9D6DE" : "#D9D6DE"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleSecundSwitch}
+            value={isSecundEnabled}
+            disabled
+          
           />
         </Text>
+
+        <Text style={{ margin: 15 }}>Finalizar Servicio:
+          <Text style={{margin: 5}}>
+            {JSON.stringify(solicitud.finish, null, 5)}
+          </Text>
+          <Switch
+            trackColor={{ false: "#979699", true: "#84B374" }}
+            thumbColor={isThirdEnabled ? "#5856D6" : "#5856D6"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleThirdSwitch}
+            value={isThirdEnabled}
+            disabled={!habilitarSwitchFinalizar()}
+          />
+        </Text>
+
 
         <View style={styles.containerTable}>
           <Table />
@@ -111,6 +174,10 @@ export const SolicitudScreen = ({ navigation }: any) => {
             bottom: 20,
             right: 20
           }}/> */}
+          {
+            (solicitud.start)
+              ? null
+              : (
         <View style={{
           position: 'absolute',
           bottom: 20,
@@ -128,9 +195,10 @@ export const SolicitudScreen = ({ navigation }: any) => {
                   style={{ }}
               /> 
           </TouchableOpacity>
-         
-
         </View>
+
+              )
+          }
 
        
       </View>
