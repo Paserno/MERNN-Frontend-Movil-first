@@ -11,7 +11,6 @@ const initialState = {
     detalleSolicitud: [], // El arreglo de detalle solicitud.
     ok: true,
 }
-// TODO: Limpiar campos al Retroceder en la pagina!
 export const SolicitudProvider = ({ children }: any ) => {
 
     const [stateSolicitud, disparo] = useReducer( solicitudReducer, initialState);
@@ -81,7 +80,7 @@ export const SolicitudProvider = ({ children }: any ) => {
     const obtenerDetalleSolicitud = async(idSolicitud: any) => {
         try {
             const {data} = await connectionApi.get(`/soli/detalle/${idSolicitud}`, {});
-            // console.log(data);
+            console.log(idSolicitud);
 
             if (!data.msg){
                 return disparo({
@@ -121,6 +120,12 @@ export const SolicitudProvider = ({ children }: any ) => {
         
     }
 
+    const limpiarCampos = () => {
+        disparo({
+            type: 'LimpiarCampos'
+        })
+    }
+
     return (
         <SolicitudContext.Provider value={{
             ...stateSolicitud,
@@ -133,6 +138,7 @@ export const SolicitudProvider = ({ children }: any ) => {
             eliminarDetalleSolicitud,
             crearDetalleSolicitud,
             actualizarDetalleSolicitud,
+            limpiarCampos,
         }}>
             { children }
         </SolicitudContext.Provider>

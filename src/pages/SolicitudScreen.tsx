@@ -6,10 +6,9 @@ import { SocketContext } from '../context/SocketContext';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Table } from '../components/Table';
 
-//TODO: Validar un poco mas el switch Finalizar Servicio!
 export const SolicitudScreen = ({ navigation }: any) => {
-  const popAction = StackActions.pop(1);
-  const { solicitud, obtenerDetalleSolicitud, detalleSolicitud } = useContext(SolicitudContext);
+  const popAction = StackActions.pop(2);
+  const { solicitud, obtenerDetalleSolicitud, detalleSolicitud, limpiarCampos } = useContext(SolicitudContext);
   const {socket} = useContext(SocketContext);
 
   const [isEnabled, setIsEnabled] = useState(solicitud.confirmacion);
@@ -40,6 +39,7 @@ export const SolicitudScreen = ({ navigation }: any) => {
   };
 
   useEffect(() => {
+    setIsEnabled(solicitud.confirmacion)
     setIsSecundEnabled(solicitud.start)
     setIsThirdEnabled(solicitud.finish)
   }, [solicitud])
@@ -84,7 +84,7 @@ export const SolicitudScreen = ({ navigation }: any) => {
 
   const mapSuma = () => {
     if (detalleSolicitud.length === 0 ){
-      return null;
+      return 0;
     }
     const sumaaReducer = (acumulador : number, numero: number) => acumulador + numero;
     const sumaPrecio = detalleSolicitud.map((e: {precio:string}) => parseInt(e.precio)).reduce(sumaaReducer)
@@ -97,7 +97,7 @@ export const SolicitudScreen = ({ navigation }: any) => {
           ? true
           : false 
     )
-    if (numeroDetalle.length === 0 ){
+    if (numeroDetalle.length === 0 && solicitud.start){
       return true
     }
     return false
@@ -169,7 +169,7 @@ export const SolicitudScreen = ({ navigation }: any) => {
 
         <TouchableOpacity
           activeOpacity={ 0.8 }
-          onPress={() => navigation.dispatch(popAction)}
+          onPress={() => {navigation.dispatch(popAction), limpiarCampos()}}
           style={{...styles.blackButton, marginTop: 10}}
         >
           <Text style={styles.buttonText}>Volver</Text>

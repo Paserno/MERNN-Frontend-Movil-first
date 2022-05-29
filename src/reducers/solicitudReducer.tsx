@@ -11,6 +11,7 @@ type SolicitudAction =
 |  { type: 'EliminarDetalleSolicitud', payload: any}
 |  { type: 'NuevoDetalleSolicitud', payload: any}
 |  { type: 'ActualizarDetalleSolicitud', payload: any}
+|  { type: 'LimpiarCampos'}
 
 
 
@@ -101,6 +102,13 @@ export const solicitudReducer = (state: any, action: SolicitudAction) => {
                 detalleSolicitud: [...state.detalleSolicitud, action.payload]
             }
             
+
+        case 'LimpiarCampos':
+            return {
+                ...state,
+                solicitud: {},
+                detalleSolicitud: []
+            }
     
         default:
             return state;
