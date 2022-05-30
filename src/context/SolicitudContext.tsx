@@ -80,7 +80,7 @@ export const SolicitudProvider = ({ children }: any ) => {
     const obtenerDetalleSolicitud = async(idSolicitud: any) => {
         try {
             const {data} = await connectionApi.get(`/soli/detalle/${idSolicitud}`, {});
-            console.log(idSolicitud);
+            // console.log(idSolicitud);
 
             if (!data.msg){
                 return disparo({

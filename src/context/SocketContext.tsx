@@ -16,6 +16,7 @@ export const SocketProvider = ({children}:any) => {
     const { actualizarSolicitud, eliminarSolicitud, eliminarDetalleSolicitud, crearDetalleSolicitud, actualizarDetalleSolicitud } = useContext(SolicitudContext);
 
     useEffect(() => {
+        desconectarSocket();
         if(logged){
           conectarSocket();
         }
