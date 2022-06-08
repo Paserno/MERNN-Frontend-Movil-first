@@ -79,6 +79,14 @@ export const SocketProvider = ({children}:any) => {
     }, [socket])
     
 
+    useEffect(() => {
+
+        socket?.on('coordenadas-compartida', (payload:any) => {
+            console.log(payload)
+        });
+
+    }, [socket])
+
     const desconectarSocketChat = () => {
         desconectarSocket();
 

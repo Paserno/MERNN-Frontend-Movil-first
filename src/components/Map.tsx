@@ -1,10 +1,13 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useContext } from 'react';
 import MapView, {PROVIDER_GOOGLE, Marker, Polyline} from 'react-native-maps';
 import { View } from 'react-native';
 import { useLocation } from '../hooks/useLocation';
 import { LoadingScreen } from '../pages/LoadingScreen';
 // import { Location } from '../interface/appInterface';
 import { Fab } from './Fab';
+import { UsuarioContext } from '../context/UsuarioContext';
+import { SocketContext } from '../context/SocketContext';
+import { CoordenadasContext } from '../context/CoordenadasContext';
 
 
 interface Props {
@@ -12,6 +15,18 @@ interface Props {
 }
 
 export const Map = ({ markers }:Props) => {
+
+  const { jardinero } = useContext(UsuarioContext);
+  const { socket }    = useContext(SocketContext);
+  const { emitirCoordenada,
+          idIntervalo,
+          compartirCoordenadas,
+          noCompartirCoodrenadas,
+          saveIntervalo } = useContext(CoordenadasContext);
+
+  const { usuario }   = jardinero;
+  // const [emitirCoordenada, setEmitirCoordenada] = useState(true)
+
 
   const [showPolyline, setShowPolyline] = useState(true)
 
@@ -47,7 +62,38 @@ export const Map = ({ markers }:Props) => {
     })
   }, [userLocation])
   
+  // ---------------------------- Intervalo -----------------------------
+  // let intervalID:any
+  let intervalID = useRef<any>(0);
+
+
+  const iniciarIntervalo = () => {
+    compartirCoordenadas()
+    intervalID.current  = setInterval(compartirUbicacion, 1000);
+    saveIntervalo(intervalID.current)
+  }
+
+  const finIntervalo = () => {
+    intervalID.current = idIntervalo
+    noCompartirCoodrenadas();
+    clearInterval(intervalID.current);
+    intervalID.current = 0
+  }
   
+
+  const compartirUbicacion = async () => {
+
+    const { latitude, longitude } = await getCurrentLocation();
+    console.log(latitude, longitude)
+    console.log(usuario._id)
+
+    socket.emit( 'coordenadas-compartida',{
+      jid: usuario._id,
+      latitude: latitude,
+      longitude: longitude 
+ })
+
+  }
 
 
   const centerPosition = async() => {
@@ -104,6 +150,37 @@ export const Map = ({ markers }:Props) => {
               description=' Esto es una descripción del marcador'
             /> */}
         </MapView>
+
+            {
+              (emitirCoordenada) 
+                  ? (
+                    <Fab 
+                      iconName='send'
+                      onPress={ iniciarIntervalo }
+                      style={{
+                        position: 'absolute',
+                        bottom: 20,
+                        left: 20,
+                        transform: [
+                          { rotateZ: "-20deg" }
+                        ]
+                      }}
+                    />
+
+                  )
+                  : (
+                    <Fab 
+                      iconName='close-circle'
+                      onPress={ finIntervalo }
+                      style={{
+                        position: 'absolute',
+                        bottom: 20,
+                        left: 20
+                      }}
+                    />
+
+                  )
+            }
 
         <Fab 
           iconName='compass-outline'

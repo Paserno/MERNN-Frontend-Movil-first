@@ -8,6 +8,7 @@ import { UsuarioProvider } from './src/context/UsuarioContext';
 import { SocketProvider } from './src/context/SocketContext';
 import { ChatProvider } from './src/context/ChatContext';
 import { SolicitudProvider } from './src/context/SolicitudContext';
+import { CoordenadasProvider } from './src/context/CoordenadasContext';
 
 
 const AppState = ({ children }: any) => {
@@ -17,11 +18,13 @@ const AppState = ({ children }: any) => {
       <AuthProvider>
         <SolicitudProvider>
           <UsuarioProvider>
-            <SocketProvider>
+            <CoordenadasProvider>
+              <SocketProvider>
               <PermissionsProvider>
                 { children }
               </PermissionsProvider>
-            </SocketProvider>
+              </SocketProvider>
+            </CoordenadasProvider>
           </UsuarioProvider>
         </SolicitudProvider>
       </AuthProvider>
