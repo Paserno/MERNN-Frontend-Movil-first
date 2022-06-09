@@ -8,6 +8,7 @@ import { Fab } from './Fab';
 import { UsuarioContext } from '../context/UsuarioContext';
 import { SocketContext } from '../context/SocketContext';
 import { CoordenadasContext } from '../context/CoordenadasContext';
+import { AuthContext } from '../context/AuthContext';
 
 
 interface Props {
@@ -16,17 +17,18 @@ interface Props {
 
 export const Map = ({ markers }:Props) => {
 
+  const { user } = useContext(AuthContext);
   const { jardinero } = useContext(UsuarioContext);
   const { socket }    = useContext(SocketContext);
   const { emitirCoordenada,
           idIntervalo,
           compartirCoordenadas,
           noCompartirCoodrenadas,
-          saveIntervalo } = useContext(CoordenadasContext);
+          saveIntervalo,
+          state } = useContext(CoordenadasContext);
+
 
   const { usuario }   = jardinero;
-  // const [emitirCoordenada, setEmitirCoordenada] = useState(true)
-
 
   const [showPolyline, setShowPolyline] = useState(true)
 
@@ -84,17 +86,20 @@ export const Map = ({ markers }:Props) => {
   const compartirUbicacion = async () => {
 
     const { latitude, longitude } = await getCurrentLocation();
-    console.log(latitude, longitude)
     console.log(usuario._id)
+    console.log(latitude, longitude)
+    console.log(user?.uid)
+
 
     socket.emit( 'coordenadas-compartida',{
       jid: usuario._id,
+      otherId: user?.uid,
       latitude: latitude,
       longitude: longitude 
- })
+    })
 
   }
-
+  // console.log(recibirCoordenada)
 
   const centerPosition = async() => {
 
@@ -121,7 +126,7 @@ export const Map = ({ markers }:Props) => {
             showsUserLocation
             provider={ PROVIDER_GOOGLE }
             initialRegion={{
-              latitude: initialPosition.latitude,
+              latitude: initialPosition.latitude ,
               longitude: initialPosition.longitude,
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
@@ -139,16 +144,26 @@ export const Map = ({ markers }:Props) => {
             )
           }
           
+          {
+            (Object.keys(state.coordenadas).length === 0) 
+            ? null 
+            :(
+              <Marker
+                image={ require('../assets/marker3.png')}
+                coordinate={{
+                  latitude: state.coordenadas.latitude ?? initialPosition.latitude,
+                  longitude: state.coordenadas.longitude ?? initialPosition.longitude,
+                }}
+                title='Jardinero'
+                description=' El Jardinero se encuentra en esta posición'
+              />
 
-            {/* <Marker
-              image={ require('../assets/custom-marker.png')}
-              coordinate={{
-                latitude: 37.78825,
-                longitude: -122.4324,
-              }}
-              title='Esto es un titulo'
-              description=' Esto es una descripción del marcador'
-            /> */}
+            )
+
+          }
+
+          
+
         </MapView>
 
             {
