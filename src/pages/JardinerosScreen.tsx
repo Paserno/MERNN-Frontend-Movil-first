@@ -60,7 +60,7 @@ export const JardinerosScreen = ({ navigation }: any) => {
       <Text style={ styles.title}>Jardineros</Text>
       <TouchableOpacity
         activeOpacity={ 0.8 }
-        onPress={ () => navigation.navigate('ContenidoScreen') }
+        onPress={ () => console.log('hola') }
 
       >
       <Icon 

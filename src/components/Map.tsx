@@ -86,9 +86,9 @@ export const Map = ({ markers }:Props) => {
   const compartirUbicacion = async () => {
 
     const { latitude, longitude } = await getCurrentLocation();
-    console.log(usuario._id)
-    console.log(latitude, longitude)
-    console.log(user?.uid)
+    // console.log(usuario._id)
+    // console.log(latitude, longitude)
+    // console.log(user?.uid)
 
 
     socket.emit( 'coordenadas-compartida',{
