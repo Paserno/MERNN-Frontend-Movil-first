@@ -10,6 +10,9 @@ const initialState = {
     jardineros: [],
     jardinero: {},  // Jardinero Seleccionado con sus datos.
     usuario: {},   // Un Registro de la BD
+    isOpenModal: false, // Modal
+    busqueda: [], // El filtro de Usuarios buscados
+    isSearching: false,
 }
 
 export const UsuarioContext = createContext({} as any);
@@ -58,11 +61,39 @@ export const UsuarioProvider = ({ children }: any ) => {
         }
     }
 
+    const buscarJardineros = (buscar: string) => {
+
+        const search = buscar.toLowerCase()
+
+        dispatch({
+            type: 'filtrarUsuarios',
+            payload: search
+        })
+    }
+
+    const eliminarBusqueda = () => {
+        dispatch({
+            type: 'sinFiltro'
+        })
+    }
+
+    const cerrarModalSolicitud = () => {
+        dispatch({type: 'uiCloseModal'});
+    }
+
+    const abrirModalSolicitud = () => {
+        dispatch({type: 'uiOpenModal'});
+    }
+
     return (
         <UsuarioContext.Provider value={{
             ...state,
             cargarUsuario,
-            obtenerJerdinero
+            obtenerJerdinero,
+            cerrarModalSolicitud,
+            abrirModalSolicitud,
+            buscarJardineros,
+            eliminarBusqueda,
         }}>
             { children }
         </UsuarioContext.Provider>
